@@ -3,8 +3,8 @@
 import csv
 from collections import OrderedDict
 
-csv_athletes = 'athlete_events.csv'
-csv_regions = 'noc_regions.csv'
+csv_athletes = 'raw_data/athlete_events.csv'
+csv_regions = 'raw_data/noc_regions.csv'
 
 csv_olympiad = 'olympiad.csv'
 csv_noc_reg = 'noc_reg.csv'
@@ -30,7 +30,6 @@ def read_athletes_events():
 
 def read_noc_regions():
     global noc_reg
-    noc_reg.update({"NOC" : (0, "Team", "Notes")})
     with open(csv_regions, 'r') as csvfile:
         reader = csv.reader(csvfile, delimiter=',',quotechar='"')
         first = True
@@ -52,7 +51,7 @@ def read_noc_regions():
             writer.writerow(print_out)
 
 def create_olympiad():
-    for row in athletes_events:
+    for row in athletes_events[1:]:
         if (row[8], row[9], row[10], row[11]) not in olympiad:
             olympiad[(row[8], row[9], row[10], row[11])] = len(olympiad)
 
@@ -63,7 +62,6 @@ def create_olympiad():
             writer.writerow(print_out)
 
 def create_athlete():
-    athlete[("Name", "Sex")] = 0
     for row in athletes_events[1:]:
         if (row[1], row[2]) not in athlete:
             athlete[(row[1], row[2])] = len(athlete)
@@ -76,7 +74,6 @@ def create_athlete():
 
 def create_athlete_year():
     global athlete_year
-    athlete_year[("olympiad_id", "athlete_id", "noc_reg_id", "Age", "Height", "Weight")] = 0
     for row in athletes_events[1:]:
         key = (olympiad[(row[8], row[9], row[10], row[11])],
                athlete[(row[1], row[2])], noc_reg[row[7]][0],
@@ -92,7 +89,7 @@ def create_athlete_year():
 
 def create_event():
     global event
-    for row in athletes_events:
+    for row in athletes_events[1:]:
         if (row[13], row[12]) not in event:
             event[(row[13], row[12])] = len(event)
 
@@ -104,7 +101,6 @@ def create_event():
 
 def create_medal():
     global medal
-    medal[("athlete_year_id", "event_id", "Medal")] = 0
     for row in athletes_events[1:]:
         key_athlete_year = (olympiad[(row[8], row[9], row[10], row[11])],
                             athlete[(row[1], row[2])], noc_reg[row[7]][0],
