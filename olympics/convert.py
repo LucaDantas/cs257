@@ -3,8 +3,8 @@
 import csv
 from collections import OrderedDict
 
-csv_athletes = 'raw_data/athlete_events.csv'
-csv_regions = 'raw_data/noc_regions.csv'
+csv_athletes = 'athlete_events.csv'
+csv_regions = 'noc_regions.csv'
 
 csv_olympiad = 'olympiad.csv'
 csv_noc_reg = 'noc_reg.csv'
