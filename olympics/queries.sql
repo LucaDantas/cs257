@@ -19,5 +19,6 @@ SELECT noc_reg.noc, COUNT(medal.medal) AS gold_medal_count
 FROM noc_reg, athlete_year, medal
 WHERE noc_reg.id = athlete_year.noc_reg_id
 AND medal.athlete_year_id = athlete_year.id
+AND medal.medal = 'Gold'
 GROUP BY noc_reg.noc
 ORDER BY COUNT(medal.medal) DESC;
