@@ -1,0 +1,22 @@
+NAME
+    olympics - A tool to search through historic olympics data
+
+SYNOPSIS
+    olympics.py [-h | --help] command args
+
+DESCRIPTION
+    This program queries a database and returns the requested informations about olympics data.
+
+OPTIONS
+    -h, --help
+        Prints the synopsis and a list of all commands.
+
+COMMANDS
+    noc_athletes (n) <noc>
+        Prints out the name of all the athletes of that noc in alphabetical order.
+
+    gold (g)
+        Lists all the NOC's and the number of gold medals they have won, in decreasing number of gold medals.
+
+    medals_by_noc (m) <noc>
+        Lists all the medals a NOC won, and the name of the athlete and the year. Ordered by decreasing year.
