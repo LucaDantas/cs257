@@ -1,0 +1,26 @@
+Luca Araújo and Zimri Leisher
+
+Dataset: Codeforces data (Competitive Programming website).
+
+We would get a list of all users from the codeforces API, whose information is defined in this page: https://codeforces.com/apiHelp/objects#User . We would also get a list of all problems, whose information is defined in this page: https://codeforces.com/apiHelp/objects#Problem , under both the Problem Object as well as the ProblemStatistics Object. We would also get a list of all contests available, whose information is defined in this page: https://codeforces.com/apiHelp/objects#Contest .
+
+The dataset contains information such as the name, country, organization, rating and rank of an user on the system. It also contains information such as the name, the difficulty and the tags (which sub-area of competitive programming this problem belongs to) of a problem. It also contains information such as the name and type of a contest.
+
+To get the data of the dataset we simply need to do three queries to the codeforces API: https://codeforces.com/api/contest.list to get the contest list, https://codeforces.com/api/problemset.problems to get all the problems, and https://codeforces.com/api/user.ratedList to get the list of all users.
+
+-USER STORIES +IMPLEMENTATION:
+    - A competitive programmer can get a list of the most solved problems of a certain tag and inside a certain difficulty range in order to choose the best problem to practice.
+    + One way to do it is to provide a problem finder with the specific search arguments each in its specific field. We could have a drop list with all the possible tags for the user to choose, we could have two text input fields to select the starting and ending rating range as well as a third input field to select the number of problems to return. If any of the fields other than the is left empty we consider that condition to be true for all problems, for example, if there is no specific tag selected we return problems with any tag, similarly if there is no ending rating range we return any problem with rating bigger than the beginning range. For the count we set a reasonable hard limit such as 100 problems in order not to crash the server and we set another reasonable value, such as 10 as the default value if no count is inputted. This query returns a list of problems containing their codeforces id, name, rating, tags, and number of users who solved it.
+
+    -A competitive programmer can get a list of competitors with information on rating and rank from his university to compare his progress to his peers.
+    -A competitive programming enthusiast can get a list of the best programmers in Brazil in order to see how good his favorite competitive programmer ranks in his country.
+    + One way to do it is, similarly to the problem finder, implement a user finder passing parameters such as name of country or university (must match exactly) and rating range. Returns a list of users sorted by rating with their handle, name, rating, max rating, rank and max rank.
+
+    - A researcher on competitive programming trends wants to investigate the participation of users in contests by time, so he can see a graph that plots the number of problems solved or difficulty of each contest for contests between a range of indexes given. (Indexes are cronologically ordered)
+    + We can implement that by providing the search parameters such as beginning and ending indexes as text input fields and asking the user which visualization they want (problems solved or difficulty) and returning a column graph with the requested information.
+
+    - A beginner competitive programmer interested in which competitive programming technique is easiest can see a graph showing the number of problems of the specified tags for each rating as different colored lines on the same line graph.
+    + One way to do this is to create a checklist for the user to select the desired tags and return a line graph with the information for every tag in a different colored line.
+
+    - An advanced competitive programmer, curious about how different techniques interact with each other, can see the overall number of problems that have all the specified tags and how many users solved those problems as well as a table and a column graph showing how many problems with all of those tags there are for every rating range.
+    + One way to do this is, just like in the last one, create a checklist for the user to select all the desired tags as well as a dropdown list for the user to choose the desired output format. With that input the browser would query the API and display the requested information in one of the chosen formats: one number representing the total number of problems and another number representing the total number of solutions to those problems; a table represeting the number of problems and users that solved those problems with those tags for every rating range; a column graph representing the number of problems for every rating range.
