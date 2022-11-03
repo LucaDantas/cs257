@@ -21,6 +21,44 @@ body {
     margin-top: 20%;
 }
 
+#FilterBar {
+    text-align: center;
+}
+
+.table {
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+.table th,
+.table td {
+    padding: 12px 15px;
+}
+.table thead tr {
+    background-color: #66a69e;
+    color: #ffffff;
+    text-align: left;
+}
+
+.table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+#subheader {
+    text-align: center;
+    font-size: 25pt;
+}
+
+.table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
 .button {
     width: 20%;
     background-color: rgb(204, 227, 241);
@@ -30,7 +68,6 @@ body {
     justify-content: center;
     align-items: center;
     color: rgb(35, 56, 124);
-    align-items: center;
     text-decoration: none;
     font-size: larger;
     outline: 1px solid gray;

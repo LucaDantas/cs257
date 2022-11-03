@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Competitive Programming Data</title>
+    <link rel="stylesheet" type="text/css" href="styles.css"/>
+</head>
+<body>
+<nav>
+    <a id="logo" href="index.html"><img src="images/4691584_codeforces_icon.png"></a>
+    <h1 id="title">Competitive Programming Codeforces Data</h1>
+</nav>
+<hr>
+<h2 id="subheader">Problem Filter</h2>
+<div id="FilterBar">
+    <label for="tags">Choose a tag:</label>
+    <select name="Tags" id="tags">
+        <option value="dp">DP</option>
+        <option value="graph">Graph</option>
+        <option value="binary">Binary Search</option>
+        <option value="greedy">Greedy</option>
+        <option value="number">Number Theory</option>
+    </select>
+    <label for="lowRating">Lowest rating</label>
+    <input type="text" id="lowRating" name="lowRating" size="5" maxlength="5"/>
+    <label for="highRating">Highest rating</label>
+    <input type="text" id="highRating" name="highRating" size="5" maxlength="5"/>
+    <label for="count">Max problems displayed</label>
+    <input type="text" id="count" name="count" size="3" maxlength="3"/>
+</div>
+<br/>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Rating</th>
+        <th>Tags</th>
+        <th>Solved Count</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>1</td>
+        <td>Batman Plays With Numbers</td>
+        <td>2300</td>
+        <td>DP, Number Theory, Graphs</td>
+        <td>222</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
