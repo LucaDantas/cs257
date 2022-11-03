@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif&display=swap');
+
+body {
+    font-family: 'Noto Serif', serif;
+    background-color: aliceblue;
+}
+
+#header {
+    text-align: center;
+    font-size: larger;
+}
+
+#ButtonBar {
+    background-color: beige;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    height: 16em;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 20%;
+}
+
+.button {
+    width: 20%;
+    background-color: rgb(204, 227, 241);
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(35, 56, 124);
+    align-items: center;
+    text-decoration: none;
+    font-size: larger;
+    outline: 1px solid gray;
+}
+
+nav {
+    padding: 1em;
+}
