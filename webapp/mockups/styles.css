@@ -110,7 +110,7 @@ nav {
 }
 
 .Graph {
-    width: 80%;
+    width: 30%;
     text-align: center;
     display: flex;
 }
@@ -127,4 +127,12 @@ select#tags {
 
 select option {
     background-color: aliceblue;
+}
+
+#backButton {
+    margin: auto;
+}
+
+#displayType {
+    margin: 10px;
 }
