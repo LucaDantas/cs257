@@ -102,19 +102,15 @@ nav {
 .CheckboxBar {
     font-size: 15pt;
     margin: 2%;
+    float: left;
 }
 
 .Body {
     margin: 2em;
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
 }
 
 .Graph {
-    width: 30%;
     text-align: center;
-    display: flex;
 }
 
 .Graph img {
@@ -122,17 +118,13 @@ nav {
 }
 
 select#tags {
-    width: 7em;
+    width: 8em;
     font-size: 12pt;
     text-align: center;
 }
 
 select option {
     background-color: aliceblue;
-}
-
-#backButton {
-    margin: auto;
 }
 
 #displayType {
