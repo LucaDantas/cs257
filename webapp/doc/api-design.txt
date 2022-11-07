@@ -77,19 +77,19 @@ GET parameters
         of the contest (calculated by the average difficulty of each contest)
         or by the number of users that solved any problem of that contest
     
-    lowest_index (Optional, default: 0) -- return only the contests with index
+    lowest_id (Optional, default: 0) -- return only the contests with id
         bigger than or equal to the given value
     
-    highest_index (Optional, default: infinity) -- return only the contests with index
+    highest_id (Optional, default: infinity) -- return only the contests with id
         less than or equal to the given value
 
 RESPONSE: a JSON list of tuples of two elements, each of which represents one
-contest, sorted increasingly by index. Each tuple contains a pair of (index, difficulty)
+contest, sorted increasingly by index. Each tuple contains a pair of (id, difficulty)
 if the requested information was difficulty or a pair of (index, solved_count) if the
 requested information was solved count
 
 EXAMPLE:
-    /contests?data_requested='difficulty'&lowest_index=1700&highest_index=1702
+    /contests?data_requested='difficulty'&lowest_id=1700&highest_id=1702
 
     [(1700, 1850), (1701, 2004), (1702, 1497)]
 
