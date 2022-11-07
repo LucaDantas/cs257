@@ -3,7 +3,7 @@ Zimri Leisher and Luca Araújo
 REQUEST: /users
 
 GET parameters
-    search_type (Required) -- defines wheter we should search users
+    search_type (Required) -- defines whether we should search users
         by their institution or country
 
     search_name (Required) -- gives the name of the institution/country
@@ -73,7 +73,7 @@ EXAMPLE:
 REQUEST: /contests
 
 GET parameters
-    data_requested (Required) -- defines wheter to display the graph by difficulty
+    data_requested (Required) -- defines whether to display the graph by difficulty
         of the contest (calculated by the average difficulty of each contest)
         or by the number of users that solved any problem of that contest
     
