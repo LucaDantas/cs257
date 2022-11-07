@@ -7,8 +7,8 @@ def get_problems():
     url = f'{API_BASE_URL}/problemset.problems?tags=2-sat'
     result = json.loads(urllib.request.urlopen(url).read().decode('utf-8'))
     if result['status'] != "OK":
-        print("ERROR GETTING THE DATA")
-        return
+        print("error getting problems:", result)
+        exit(1)
     data = result['result']
     print(data)
 
@@ -17,8 +17,8 @@ def get_users():
     result = json.loads(urllib.request.urlopen(url).read().decode('utf-8'))
     print(result['status'])
     if result['status'] != "OK":
-        print("ERROR GETTING THE DATA")
-        return
+        print("error getting users:", result)
+        exit(1)
     data = result['result']
     # print(data)
 
@@ -27,8 +27,8 @@ def get_contests():
     result = json.loads(urllib.request.urlopen(url).read().decode('utf-8'))
     print(result['status'])
     if result['status'] != "OK":
-        print("ERROR GETTING THE DATA")
-        return
+        print("error getting contests:", result)
+        exit(1)
     data = result['result']
     print(data)
 
