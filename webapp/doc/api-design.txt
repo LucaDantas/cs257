@@ -1,0 +1,137 @@
+Zimri Leisher and Luca Araújo
+
+REQUEST: /users
+
+GET parameters
+    search_type (Required) -- defines wheter we should search users
+        by their institution or country
+
+    search_name (Required) -- gives the name of the institution/country
+        to search for
+    
+    lowest_rating (Optional, default: -infinity) -- return only users with
+        rating bigger than or equal to the one given
+    
+    highest_rating (Optional, default: infinity) -- return only users with
+        rating less than or equal to the one given
+
+    max_users (Optional, default: 10) -- the maximum number of users to return
+        if value given is higher than 500 it is changed to 500
+
+RESPONSE: a JSON list of dictionaries, each of which represents one
+user, sorted decreasingly by rating. Each dictionary in this list
+will have the following fields.
+
+   handle -- (TEXT) the user's handle
+   name -- (TEXT) the user's name
+   rating -- (INTEGER) the user's current rating
+   max_rating -- (INTEGER) the user's maximum rating
+   rank -- (TEXT) the user's current rank
+   max_rank -- (TEXT) the user's maximum rank
+
+EXAMPLE:
+    /authors?search_type=institution&search_name="Carleton College"&lowest_rating=400&max_users=5
+
+       [{"handle":"Luca", "name":"Luca", "rating":2268, "max_rating":2268, "rank":"Master", "max_rank":"Master"},
+       {"handle":"batmendbar", "name":"Batmend", "rating":1974, "max_rating":1974, "rank":"Candidate Master", "max_rank":"Candidate Master"},
+       {"handle":"column", "name":"Zimri", "rating":409, "max_rating":409, "rank":"Newbie", "max_rank":"Newbie"}]
+
+
+
+REQUEST: /problems
+
+GET parameters
+    tag (Optional, default='') -- returns only problems that contain
+        the defined tag. If left blank returns problems of any tag
+    
+    lowest_rating (Optional, default: -infinity) -- return only problems with
+        rating bigger than or equal to the one given
+    
+    highest_rating (Optional, default: infinity) -- return only problems with
+        rating less than or equal to the one given
+
+    max_problems (Optional, default: 10) -- the maximum number of problems to return
+        if value given is higher than 500 it is changed to 500
+
+RESPONSE: a JSON list of dictionaries, each of which represents one
+problem, sorted decreasingly by number of users who solved the problem.
+Each dictionary in this list will have the following fields.
+
+   id -- (INTEGER) the codeforces id of the problem
+   name -- (TEXT) the problem's name
+   rating -- (INTEGER) the problem's rating
+   tags -- (TEXT) the list of tags of a problem separated by commas
+   solved_count -- (INTEGER) the number of users that solved that problem
+
+EXAMPLE:
+    /problems?tag='dp'&lowest_rating=2000&highest_rating=2300
+
+       [{"id":1, "name":"Batman plays with number", "rating":2300, "tags":"dp,number theory,graphs", "solved_count":222}]
+
+
+
+REQUEST: /contests
+
+GET parameters
+    data_requested (Required) -- defines wheter to display the graph by difficulty
+        of the contest (calculated by the average difficulty of each contest)
+        or by the number of users that solved any problem of that contest
+    
+    lowest_index (Optional, default: 0) -- return only the contests with index
+        bigger than or equal to the given value
+    
+    highest_index (Optional, default: infinity) -- return only the contests with index
+        less than or equal to the given value
+
+RESPONSE: a JSON list of tuples of two elements, each of which represents one
+contest, sorted increasingly by index. Each tuple contains a pair of (index, difficulty)
+if the requested information was difficulty or a pair of (index, solved_count) if the
+requested information was solved count
+
+EXAMPLE:
+    /contests?data_requested='difficulty'&lowest_index=1700&highest_index=1702
+
+    [(1700, 1850), (1701, 2004), (1702, 1497)]
+
+
+
+REQUEST: /tags_graph
+
+GET parameters
+    tags (Required) -- returns a plot graph for each of the required
+        tags. The input is a list of tags separated by commas
+
+RESPONSE: a JSON list of tuples, each of which represents one
+tag, sorted alphabetically by the name of the tag.
+Each tuple in this list will have the following fields.
+
+   tag -- (TEXT) the name of the tag
+   count -- (INTEGER) the number of problems with that tag
+
+EXAMPLE:
+    /tags_graph?tags='dp,number theory,graphs'
+
+       [("dp", 368), ("number theory", 203), ("graphs", 687)]
+
+
+
+REQUEST: /tags_intersection
+
+GET parameters
+    tags (Required) -- returns the information for the problems that
+        contain all tags. The input is a list of tags separated by commas
+
+RESPONSE: a JSON list of dictionaries, each of which represents one
+rating range, sorted decreasingly by rating. Each dictionary in this list
+will have the following fields.
+
+   rating -- (INTEGER) the beginning of the rating range (all problems ratings' are multiples of 100)
+   problem_count -- (INTEGER) the count of problems in that range
+      with those tags
+   solved_count -- (INTEGER) the count of solutions of problems
+      in that range with those tags
+
+EXAMPLE:
+    /tags_graph?tags='dp,number theory,graphs'
+
+       [{rating:2200, problem_count:0, solved_count:0}, {rating:2300, problem_count:1, solved_count:222}]
