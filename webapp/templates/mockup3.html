@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Competitive Programming Data</title>
-    <link rel="stylesheet" type="text/css" href="styles.css"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}"/>
 </head>
 <body>
 <nav>
-    <a id="logo" href="/"><img src="images/4691584_codeforces_icon.png" alt="Codeforces logo"></a>
+    <a href="/"><img src="{{ url_for('static', filename='images/4691584_codeforces_icon.png') }}"></a>
     <h1 id="title">Competitive Programming Codeforces Data</h1>
 </nav>
 <hr>
@@ -25,7 +25,7 @@
 </div>
 <br/>
 <div class="Graph">
-    <img src="images/contest_graph.png" alt="Contest graph example picture"/>
+    <img src="{{ url_for('static', filename='images/contest_graph.png') }}" alt="Contest graph example picture"/>
 </div>
 </body>
 </html>
