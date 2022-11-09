@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Competitive Programming Data</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}"/>
+    <script type="text/javascript" src="{{ url_for('static', filename='users.js') }}"></script>
 </head>
 <body>
 <nav>
@@ -26,9 +27,10 @@
     <input type="text" id="highRating" name="highRating" size="5" maxlength="5"/>
     <label for="count">Max users displayed</label>
     <input type="text" id="count" name="count" size="3" maxlength="3"/>
+    <button id="search">Search</button>
 </div>
 <br/>
-<table class="table">
+<table class="table" id="users">
     <thead>
     <tr>
         <th>Handle</th>
