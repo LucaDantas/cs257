@@ -4,6 +4,7 @@ Codeforces database, API and web app
 """
 
 import sys
+import traceback
 import psycopg2
 import json
 import config
@@ -47,26 +48,26 @@ def get_users():
     max_users = flask.request.args.get("max_users")
     institution_name = flask.request.args.get("institution_name")
     institution_type = flask.request.args.get("institution_type")
-
+    print("received args:", flask.request.args)
     query = """SELECT handle, first_name, last_name, rating, max_rating, user_rank, max_user_rank FROM users"""
 
     predicates = []
-    args = []
+    args = {}
 
     if lowest_rating:
-        predicates += """users.rating >= %%%%(lowest_rating)s"""
-        args += ("lowest_rating", lowest_rating)
+        predicates.append("""users.rating >= %(lowest_rating)s""")
+        args["lowest_rating"] = int(lowest_rating)
 
     if highest_rating:
-        predicates += """users.rating <= %%%%(highest_rating)s"""
-        args += ("highest_rating", highest_rating)
+        predicates.append("""users.rating <= %(highest_rating)s""")
+        args["highest_rating"] = int(highest_rating)
 
     if institution_type and institution_name:
         if institution_type == 'country':
-            predicates += """users.country LIKE '%%%(institution_name)s%%'"""
+            predicates.append("""users.country LIKE %(institution_name)s""")
         else:
-            predicates += """users.organization LIKE '%%%(institution_name)s%%'"""
-        args += ("institution_name", institution_name)
+            predicates.append("""users.organization LIKE %(institution_name)s""")
+        args["institution_name"] = institution_name
 
 
     if len(predicates) > 0:
@@ -82,6 +83,7 @@ def get_users():
     try:
         connection = get_connection()
         cursor = connection.cursor()
+        print("query:", query, "args:", args)
         cursor.execute(query, args)
         max_users = int(max_users) if max_users else 50
         rows = list(cursor)
@@ -94,7 +96,7 @@ def get_users():
         cursor.close()
         connection.close()
     except Exception as e:
-        print(e, file=sys.stderr)
+        traceback.print_exc()
 
     return json.dumps(users)
 

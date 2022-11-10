@@ -27,6 +27,7 @@ function onSearchButtonClicked() {
 	.then((response) => response.json())
 	.then(function(usersList) {
 		var tableBody = '';
+		tableBody += '<thead><tr><th>Handle</th><th>Name</th><th>Rating</th><th>Max Rating</th><th>Rank</th><th>Max Rank</th></tr></thead>'
 		for (var i = 0; i < usersList.length; i++) {
 			tableBody += '<tr>';
 			tableBody += '<td>' + usersList[i]['handle'] + '</td>';
