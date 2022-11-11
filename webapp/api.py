@@ -64,9 +64,9 @@ def get_users():
 
     if institution_type and institution_name:
         if institution_type == 'country':
-            predicates.append("""users.country LIKE %(institution_name)s""")
+            predicates.append("""users.country ILIKE CONCAT('%%', %(institution_name)s, '%%')""")
         else:
-            predicates.append("""users.organization LIKE %(institution_name)s""")
+            predicates.append("""users.organization ILIKE CONCAT('%%', %(institution_name)s, '%%')""")
         args["institution_name"] = institution_name
 
 
