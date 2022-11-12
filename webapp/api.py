@@ -100,4 +100,22 @@ def get_users():
 
     return json.dumps(users)
 
+@api.route('/tag_names')
+def get_tag_names():
+    query = """SELECT name FROM tags"""
+
+    tags = []
+    try:
+        connection = get_connection()
+        cursor = connection.cursor()
+        print("query:", query)
+        cursor.execute(query, )
+        tags = list(cursor)
+        cursor.close()
+        connection.close()
+    except Exception as e:
+        traceback.print_exc()
+
+    return json.dumps(tags)
+
 

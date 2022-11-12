@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Competitive Programming Data</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}"/>
+    <script type="text/javascript" src="{{ url_for('static', filename='problems.js') }}"></script>
 </head>
 <body>
 <nav>
@@ -14,19 +15,14 @@
 <h2 id="subheader">Problem Filter</h2>
 <div id="FilterBar">
     <label for="tags">Choose a tag:</label>
-    <select name="Tags" id="tags">
-        <option value="dp">DP</option>
-        <option value="graph">Graph</option>
-        <option value="binary">Binary Search</option>
-        <option value="greedy">Greedy</option>
-        <option value="number">Number Theory</option>
-    </select>
+    <select name="Tags" id="tags"></select>
     <label for="lowRating">Lowest rating</label>
     <input type="text" id="lowRating" name="lowRating" size="5" maxlength="5"/>
     <label for="highRating">Highest rating</label>
     <input type="text" id="highRating" name="highRating" size="5" maxlength="5"/>
     <label for="count">Max problems displayed</label>
     <input type="text" id="count" name="count" size="3" maxlength="3"/>
+    <button id="search">Search</button>
 </div>
 <br/>
 <table class="table">
