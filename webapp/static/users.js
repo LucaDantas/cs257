@@ -31,7 +31,7 @@ function onSearchButtonClicked() {
 		for (var i = 0; i < usersList.length; i++) {
 			tableBody += '<tr>';
 			tableBody += '<td>' + usersList[i]['handle'] + '</td>';
-			tableBody += '<td>' + usersList[i]['first_name'] + ' ' + usersList[i]['last_name'] + '</td>';
+			tableBody += '<td>' + usersList[i]['name'] + '</td>';
 			tableBody += '<td>' + usersList[i]['rating'] + '</td>';
 			tableBody += '<td>' + usersList[i]['max_rating'] + '</td>';
 			tableBody += '<td>' + usersList[i]['user_rank'] + '</td>';

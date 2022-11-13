@@ -30,21 +30,6 @@ def get_help():
 
 @api.route('/users')
 def get_users():
-    """
-    Returns a list of up to 50 users in the database matching
-    the specified criteria. Criteria can be:
-        lowest_rating - the lowest rating to allow for a user
-        highest_rating - the highest rating to allow for a user
-        max_users - the maximum number of users to return
-        institution_name - the name of the instutition to search by. If this is
-        specified, institution_type must also be specified
-        institution_type - country to search for users by country,
-                            any other value to search for users by organization. Does nothing
-                            if instutition_name is not specified
-
-    The users will be sorted by their max rating descending, breaking ties 
-    alphabetically by full name
-    """
 
     lowest_rating = flask.request.args.get("lowest_rating")
     highest_rating = flask.request.args.get("highest_rating")
@@ -87,7 +72,7 @@ def get_users():
         cursor.execute(query, args)
 
         for row in list(cursor):
-            users.append({"handle": row[0], "first_name": row[1], "last_name": row[2],
+            users.append({"handle": row[0], "name": (row[1] if row[1] else "") + (row[2] if row[2] else ""),
                           "rating": row[3], "max_rating": row[4], "user_rank": row[5],
                           "max_user_rank": row[6]})
 
