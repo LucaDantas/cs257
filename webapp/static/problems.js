@@ -7,7 +7,6 @@ window.onload = initialize;
 
 function initialize() {
     var element = document.getElementById('search');
-    console.log("OI");
     populateTags();
     element.onclick = onSearchButtonClicked;
 }
@@ -23,7 +22,7 @@ function populateTags() {
     fetch(url, {method: 'get'})
         .then(response => response.json())
         .then(function(tag_names) {
-            var options = '';
+            var options = '<option></option>'; // Leave the option for no tag
             for (let i = 0; i < tag_names.length; i++) {
                 options += '<option value="' + tag_names[i] + '">' + tag_names[i] + '</option>';
             }
@@ -35,29 +34,28 @@ function populateTags() {
 }
 
 function onSearchButtonClicked() {
-        /*
-	var maxUsers = document.getElementById('count').value;
 	var tag = document.getElementById('tags').value;
 	var lowestRating = document.getElementById('lowRating').value;
 	var highestRating = document.getElementById('highRating').value;
-	var url = getAPIBaseURL() + '/users?max_users=' + maxUsers + '&institution_name=' + institutionName + '&institution_type=' + searchType + '&lowest_rating=' + lowestRating + '&highest_rating=' + highestRating;
+	var maxProblems = document.getElementById('count').value;
+
+	var url = getAPIBaseURL() + '/problems?tag=' + tag + '&lowest_rating=' + lowestRating + '&highest_rating=' + highestRating + '&max_problems=' + maxProblems;
 	
 	fetch(url, {method: 'get'})
 	.then((response) => response.json())
 	.then(function(usersList) {
 		var tableBody = '';
-		tableBody += '<thead><tr><th>Handle</th><th>Name</th><th>Rating</th><th>Max Rating</th><th>Rank</th><th>Max Rank</th></tr></thead>'
+		tableBody += '<thead><tr><th>Id</th><th>Name</th><th>Rating</th><th>Tags</th><th>Solved Count</th></thead>'
 		for (var i = 0; i < usersList.length; i++) {
 			tableBody += '<tr>';
-			tableBody += '<td>' + usersList[i]['handle'] + '</td>';
-			tableBody += '<td>' + usersList[i]['first_name'] + ' ' + usersList[i]['last_name'] + '</td>';
+			tableBody += '<td>' + usersList[i]['id'] + '</td>';
+			tableBody += '<td>' + usersList[i]['name'] + '</td>';
 			tableBody += '<td>' + usersList[i]['rating'] + '</td>';
-			tableBody += '<td>' + usersList[i]['max_rating'] + '</td>';
-			tableBody += '<td>' + usersList[i]['user_rank'] + '</td>';
-			tableBody += '<td>' + usersList[i]['max_user_rank'] + '</td>';
+			tableBody += '<td>' + usersList[i]['tags'] + '</td>';
+			tableBody += '<td>' + usersList[i]['solved_count'] + '</td>';
 			tableBody += '</tr>';
 		}
-		var resultsTableElement = document.getElementById('users');
+		var resultsTableElement = document.getElementById('problems');
 		if (resultsTableElement) {
 			resultsTableElement.innerHTML = tableBody;
 		}
@@ -65,5 +63,4 @@ function onSearchButtonClicked() {
 	.catch(function(error) {
 		console.log(error);
         });
-        */
 }

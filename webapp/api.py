@@ -86,14 +86,25 @@ def get_users():
 
 @api.route('/problems')
 def get_problems():
+    tag = flask.request.args.get("tag")
     lowest_rating = flask.request.args.get("lowest_rating")
     highest_rating = flask.request.args.get("highest_rating")
     max_problems = flask.request.args.get("max_problems")
+
     print("received args:", flask.request.args)
-    query = """SELECT problem_id, name, rating, solved_count FROM problems"""
+
+    query = """SELECT problems.problem_id, problems.name, rating, solved_count FROM problems"""
 
     predicates = []
     args = {}
+
+    if tag:
+        query += ", problem_tags, tags" # we only search through the tags if we need
+
+        predicates.append("""tags.name = %(tag)s
+                             AND tags.id = problem_tags.tag_id
+                             AND problem_tags.problem_id = problems.problem_id""")
+        args["tag"] = tag
 
     if lowest_rating:
         predicates.append("""problems.rating >= %(lowest_rating)s""")
