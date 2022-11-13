@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Competitive Programming Data</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}"/>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"> </script>
+    <script type="text/javascript" src="{{ url_for('static', filename='tags.js') }}"></script>
 </head>
 <body>
 <nav>
@@ -16,49 +18,48 @@
 
 <div class="Body">
     <div class="CheckboxBar">
-        <form>
-            <select name="tags" id="tags" size="25" multiple>
-                <option value="graphs">graphs</option>
-                <option value="graphs">graphs</option>
-                <option value="graphs">graphs</option>
-                <option value="graphs">graphs</option>
-                <option value="graphs">graphs</option>
-                <option value="graphs">graphs</option>
-                <option value="graphs">graphs</option>
-                <option value="graphs">graphs</option>
-                <option value="graphs">graphs</option>
-                <option value="graphs">graphs</option>
-                <option value="graphs">graphs</option>
-                <option value="graphs">graphs</option>
-                <option value="graphs">graphs</option>
-                <option value="graphs">graphs</option>
-                <option value="graphs">graphs</option>
-                <option value="graphs">graphs</option>
-                <option value="graphs">graphs</option>
-                <option value="graphs">graphs</option>
-                <option value="graphs">graphs</option>
-                <option value="graphs">graphs</option>
-                <option value="graphs">graphs</option>
-                <option value="graphs">graphs</option>
-                <option value="graphs">graphs</option>
-                <option value="graphs">graphs</option>
-                <option value="graphs">graphs</option>
-                <option value="graphs">graphs</option>
-                <option value="graphs">graphs</option>
-                <option value="graphs">graphs</option>
-                <option value="graphs">graphs</option>
-                <option value="graphs">graphs</option>
-                <option value="graphs">graphs</option>
-                <option value="graphs">graphs</option>
-                <option value="graphs">graphs</option>
-                <option value="graphs">graphs</option>
-                <option value="graphs">graphs</option>
-                <option value="graphs">graphs</option>
-                <option value="graphs">graphs</option>
-                <option value="graphs">graphs</option>
-                <option value="graphs">graphs</option>
-            </select>
-        </form>
+        <button id="search" style="float: right; margin-left: 10px;">Search</button>
+        <select name="tags" id="tags" size="25" multiple>
+            <option value="graphs">graphs</option>
+            <option value="dp">dp</option>
+            <option value="combinatorics">combinatorics</option>
+            <option value="graphs">graphs</option>
+            <option value="graphs">graphs</option>
+            <option value="graphs">graphs</option>
+            <option value="graphs">graphs</option>
+            <option value="graphs">graphs</option>
+            <option value="graphs">graphs</option>
+            <option value="graphs">graphs</option>
+            <option value="graphs">graphs</option>
+            <option value="graphs">graphs</option>
+            <option value="graphs">graphs</option>
+            <option value="graphs">graphs</option>
+            <option value="graphs">graphs</option>
+            <option value="graphs">graphs</option>
+            <option value="graphs">graphs</option>
+            <option value="graphs">graphs</option>
+            <option value="graphs">graphs</option>
+            <option value="graphs">graphs</option>
+            <option value="graphs">graphs</option>
+            <option value="graphs">graphs</option>
+            <option value="graphs">graphs</option>
+            <option value="graphs">graphs</option>
+            <option value="graphs">graphs</option>
+            <option value="graphs">graphs</option>
+            <option value="graphs">graphs</option>
+            <option value="graphs">graphs</option>
+            <option value="graphs">graphs</option>
+            <option value="graphs">graphs</option>
+            <option value="graphs">graphs</option>
+            <option value="graphs">graphs</option>
+            <option value="graphs">graphs</option>
+            <option value="graphs">graphs</option>
+            <option value="graphs">graphs</option>
+            <option value="graphs">graphs</option>
+            <option value="graphs">graphs</option>
+            <option value="graphs">graphs</option>
+            <option value="graphs">graphs</option>
+        </select>
     </div>
 
     <div class="Graph">
