@@ -189,6 +189,38 @@ def get_contest_graph():
     return json.dumps(contests)
 
 
+@api.route('/tags_graph')
+def get_tags_graph():
+    received_tags = flask.request.args.get("tags").split(',')
+
+    print("received args:", received_tags)
+
+    tags = []
+    for tag in received_tags:
+        args = {}
+
+        query = """SELECT COUNT(problems.problem_id) FROM tags, problem_tags, problems
+                   WHERE tags.name = %(tag)s
+                   AND tags.id = problem_tags.tag_id
+                   AND problem_tags.problem_id = problems.problem_id"""
+
+        args["tag"] = tag
+
+        try:
+            connection = get_connection()
+            cursor = connection.cursor()
+
+            cursor.execute(query, args)
+            tags.append((tag, list(cursor)[0][0]))
+            
+            cursor.close()
+            connection.close()
+        except Exception as e:
+            traceback.print_exc()
+
+    return json.dumps(tags)
+
+
 @api.route('/tag_names')
 def get_tag_names():
     query = """SELECT name FROM tags"""
