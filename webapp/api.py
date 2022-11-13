@@ -15,18 +15,13 @@ api = flask.Blueprint('api', __name__)
 
 
 def get_connection():
-    """
-    Returns a connection to the database specified in the
-    config file, or raise an exception as specified in the
-    psycopg2.connect method
-    """
     return psycopg2.connect(database=config.database,
                             user=config.user,
                             password=config.password)
 
 @api.route('/help')
 def get_help():
-    return '<p>' + '<br>'.join(open('.' + flask.url_for('static', filename='api-design.txt'), 'r').readlines()) + '</p>'
+    return flask.send_file('.' + flask.url_for('static', filename='api-design.txt'), mimetype='text')
 
 @api.route('/users')
 def get_users():
@@ -149,6 +144,50 @@ def get_problems():
 
     return json.dumps(problems)
 
+@api.route('/contests')
+def get_contest_graph():
+    # values of the data requested must be either total_solves or difficulty
+    data_requested = flask.request.args.get("data_requested")
+    lowest_id = flask.request.args.get("lowest_id")
+    highest_id = flask.request.args.get("highest_id")
+
+    print("received args:", flask.request.args)
+
+    predicates = []
+    args = {}
+
+    query = """SELECT contests.id, contests.%(data_requested)s FROM contests"""
+    args["data_requested"] = psycopg2.extensions.AsIs(data_requested)
+
+    if lowest_id:
+        predicates.append("""contests.id >= %(lowest_id)s""")
+        args["lowest_id"] = int(lowest_id)
+
+    if highest_id:
+        predicates.append("""contests.id <= %(highest_id)s""")
+        args["highest_id"] = int(highest_id)
+
+    if len(predicates) > 0:
+        query += " WHERE " + " AND ".join(predicates)
+
+    query += " ORDER BY contests.id"
+
+    contests = []
+    try:
+        connection = get_connection()
+        cursor = connection.cursor()
+
+        cursor.execute(query, args)
+        for row in list(cursor):
+            contests.append((row[0], row[1]))
+        
+        cursor.close()
+        connection.close()
+    except Exception as e:
+        traceback.print_exc()
+
+    return json.dumps(contests)
+
 
 @api.route('/tag_names')
 def get_tag_names():
@@ -168,5 +207,4 @@ def get_tag_names():
         traceback.print_exc()
 
     return json.dumps(tags)
-
 
