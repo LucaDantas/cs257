@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Competitive Programming Data</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}"/>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"> </script>
+    <script type="text/javascript" src="{{ url_for('static', filename='contests.js') }}"></script>
 </head>
 <body>
 <nav>
@@ -13,8 +15,8 @@
 <hr>
 <h2 id="subheader">Contest Graph</h2>
 <div id="FilterBar">
-    <label for="tags">Choose the desired information:</label>
-    <select name="sorting" id="tags">
+    <label for="data_requested">Choose the desired information:</label>
+    <select name="sorting" id="data_requested">
         <option value="total_solves">Solves</option>
         <option value="difficulty">Difficulty</option>
     </select>
@@ -22,10 +24,9 @@
     <input type="text" id="lowIndex" name="lowIndex" size="5" maxlength="5"/>
     <label for="highIndex">Highest index</label>
     <input type="text" id="highIndex" name="highIndex" size="5" maxlength="5"/>
+    <button id="search">Search</button>
 </div>
 <br/>
-<div class="Graph">
-    <img src="{{ url_for('static', filename='images/contest_graph.png') }}" alt="Contest graph example picture"/>
-</div>
+<div class="Graph" id="chartContainer"></div>
 </body>
 </html>

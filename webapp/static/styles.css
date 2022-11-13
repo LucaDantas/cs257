@@ -111,10 +111,7 @@ nav {
 
 .Graph {
     text-align: center;
-}
-
-.Graph img {
-    margin: 0 auto;
+    height: 40em;
 }
 
 select#tags {
