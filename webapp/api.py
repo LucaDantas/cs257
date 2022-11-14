@@ -215,8 +215,8 @@ def get_tags_graph(received_tags):
             cursor.execute(query, args)
             tags[tag] = []
             for element in list(cursor):
-                print(element)
-                tags[tag].append((element[0], element[1]))
+                if(element[0]):
+                    tags[tag].append((element[0], element[1]))
             
             cursor.close()
             connection.close()
