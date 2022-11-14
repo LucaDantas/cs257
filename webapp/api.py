@@ -23,14 +23,14 @@ def get_connection():
 def get_help():
     return flask.send_file('.' + flask.url_for('static', filename='api-design.txt'), mimetype='text')
 
-@api.route('/users')
-def get_users():
+@api.route('/users/<institution_type>')
+def get_users(institution_type):
 
     lowest_rating = flask.request.args.get("lowest_rating")
     highest_rating = flask.request.args.get("highest_rating")
     max_users = flask.request.args.get("max_users")
     institution_name = flask.request.args.get("institution_name")
-    institution_type = flask.request.args.get("institution_type")
+    # institution_type = flask.request.args.get("institution_type")
     print("received args:", flask.request.args)
     query = """SELECT handle, first_name, last_name, rating, max_rating, user_rank, max_user_rank FROM users"""
 
@@ -67,9 +67,8 @@ def get_users():
         cursor.execute(query, args)
 
         for row in list(cursor):
-            users.append({"handle": row[0], "name": (row[1] if row[1] else "") + (row[2] if row[2] else ""),
-                          "rating": row[3], "max_rating": row[4], "user_rank": row[5],
-                          "max_user_rank": row[6]})
+            users.append({"handle": row[0], "name": (row[1] if row[1] else "") + " " + (row[2] if row[2] else ""),
+                          "rating": row[3], "max_rating": row[4], "user_rank": row[5], "max_user_rank": row[6]})
 
         cursor.close()
         connection.close()
@@ -81,6 +80,7 @@ def get_users():
 
 @api.route('/problems')
 def get_problems():
+    # a user can ask for a query without any tag
     tag = flask.request.args.get("tag")
     lowest_rating = flask.request.args.get("lowest_rating")
     highest_rating = flask.request.args.get("highest_rating")
@@ -144,10 +144,10 @@ def get_problems():
 
     return json.dumps(problems)
 
-@api.route('/contests')
-def get_contest_graph():
+@api.route('/contests/<data_requested>')
+def get_contest_graph(data_requested):
     # values of the data requested must be either total_solves or difficulty
-    data_requested = flask.request.args.get("data_requested")
+    # data_requested = flask.request.args.get("data_requested")
     lowest_id = flask.request.args.get("lowest_id")
     highest_id = flask.request.args.get("highest_id")
 
@@ -189,9 +189,9 @@ def get_contest_graph():
     return json.dumps(contests)
 
 
-@api.route('/tags_graph')
-def get_tags_graph():
-    received_tags = flask.request.args.get("tags").split(',')
+@api.route('/tags_graph/<received_tags>')
+def get_tags_graph(received_tags):
+    received_tags = received_tags.split(',')
 
     print("received args:", received_tags)
 

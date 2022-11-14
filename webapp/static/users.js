@@ -21,7 +21,7 @@ function onSearchButtonClicked() {
 	var lowestRating = document.getElementById('lowRating').value;
 	var highestRating = document.getElementById('highRating').value;
 	var institutionName = document.getElementById('name').value;
-	var url = getAPIBaseURL() + '/users?max_users=' + maxUsers + '&institution_name=' + institutionName + '&institution_type=' + searchType + '&lowest_rating=' + lowestRating + '&highest_rating=' + highestRating;
+        var url = getAPIBaseURL() + '/users/' + searchType + '?max_users=' + maxUsers + '&institution_name=' + institutionName + '&lowest_rating=' + lowestRating + '&highest_rating=' + highestRating;
 	
 	fetch(url, {method: 'get'})
 	.then((response) => response.json())

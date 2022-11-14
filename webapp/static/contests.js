@@ -20,7 +20,7 @@ function onSearchButtonClicked() {
     var lowest_index = document.getElementById('lowIndex').value;
     var highest_index = document.getElementById('highIndex').value;
 
-    var url = getAPIBaseURL() + '/contests?data_requested=' + data_requested + '&lowest_id=' + lowest_index + '&highest_index=' + highest_index;
+    var url = getAPIBaseURL() + '/contests/' + data_requested + '?lowest_id=' + lowest_index + '&highest_id=' + highest_index;
     
     fetch(url, {method: 'get'})
     .then((response) => response.json())
