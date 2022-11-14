@@ -19,7 +19,7 @@
 <div class="Body">
     <div class="CheckboxBar">
         <button id="search" style="float: right; margin-left: 10px;">Search</button>
-        <select name="tags" id="tags" size="25" multiple>
+        <select name="tags" id="tags" size="15" multiple>
             <option value="graphs">graphs</option>
             <option value="dp">dp</option>
             <option value="combinatorics">combinatorics</option>
@@ -61,10 +61,7 @@
             <option value="graphs">graphs</option>
         </select>
     </div>
-
-    <div class="Graph">
-        <img src="{{ url_for('static', filename='images/simple_graph.png') }}" alt="Graph representing the information of the tags requested">
-    </div>
+    <div id="chartContainer" style="height: 300px; width: 60%;"/>
 </div>
 </body>
 </html>
