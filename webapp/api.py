@@ -199,10 +199,12 @@ def get_tags_graph(received_tags):
     for tag in received_tags:
         args = {}
 
-        query = """SELECT COUNT(problems.problem_id) FROM tags, problem_tags, problems
+        query = """SELECT problems.rating, COUNT(problems.rating) FROM tags, problem_tags, problems
                    WHERE tags.name = %(tag)s
                    AND tags.id = problem_tags.tag_id
-                   AND problem_tags.problem_id = problems.problem_id"""
+                   AND problem_tags.problem_id = problems.problem_id
+                   GROUP BY problems.rating
+                   ORDER BY problems.rating"""
 
         args["tag"] = tag
 
@@ -211,7 +213,9 @@ def get_tags_graph(received_tags):
             cursor = connection.cursor()
 
             cursor.execute(query, args)
-            tags.append((tag, list(cursor)[0][0]))
+            for element in list(cursor):
+                print(element)
+                tags.append((tag, element[0], element[1]))
             
             cursor.close()
             connection.close()
