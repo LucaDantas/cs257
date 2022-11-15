@@ -1,12 +1,12 @@
 Zimri Leisher and Luca Araújo
 
-REQUEST: /users
+REQUEST: /users/<search_type>
+
+search_type (Required) -- defines whether we should search users
+    by their institution or country
 
 GET parameters
-    search_type (Required) -- defines whether we should search users
-        by their institution or country
-
-    search_name (Required) -- gives the name of the institution/country
+    search_name (Optional, default: '') -- gives the name of the institution/country
         to search for
     
     lowest_rating (Optional, default: -infinity) -- return only users with
@@ -30,7 +30,7 @@ will have the following fields.
    max_rank -- (TEXT) the user's maximum rank
 
 EXAMPLE:
-    /authors?search_type=institution&search_name="Carleton College"&lowest_rating=400&max_users=5
+    /authors/institution?search_name="Carleton College"&lowest_rating=400&max_users=5
        [{"handle":"Luca", "name":"Luca", "rating":2268, "max_rating":2268, "rank":"Master", "max_rank":"Master"},
        {"handle":"batmendbar", "name":"Batmend", "rating":1974, "max_rating":1974, "rank":"Candidate Master", "max_rank":"Candidate Master"},
        {"handle":"column", "name":"Zimri", "rating":409, "max_rating":409, "rank":"Newbie", "max_rank":"Newbie"}]
@@ -40,7 +40,7 @@ EXAMPLE:
 REQUEST: /problems
 
 GET parameters
-    tag (Optional, default='') -- returns only problems that contain
+    tag (Optional, default: '') -- returns only problems that contain
         the defined tag. If left blank returns problems of any tag
     
     lowest_rating (Optional, default: -infinity) -- return only problems with
@@ -63,19 +63,19 @@ Each dictionary in this list will have the following fields.
    solved_count -- (INTEGER) the number of users that solved that problem
 
 EXAMPLE:
-    /problems?tag='dp'&lowest_rating=2000&highest_rating=2300
+    /problems?tag=dp&lowest_rating=2000&highest_rating=2300
 
        [{"id":1, "name":"Batman plays with number", "rating":2300, "tags":"dp,number theory,graphs", "solved_count":222}]
 
 
 
-REQUEST: /contests
+REQUEST: /contests/<data_requested>
 
-GET parameters
-    data_requested (Required) -- defines whether to display the graph by difficulty
-        of the contest (calculated by the average difficulty of each contest)
-        or by the number of users that solved any problem of that contest
+data_requested (Required) -- defines whether to display the graph by difficulty
+    of the contest (calculated by the average difficulty of each contest)
+    or by the number of users that solved any problem of that contest
     
+GET parameters
     lowest_id (Optional, default: 0) -- return only the contests with id
         bigger than or equal to the given value
     
@@ -88,37 +88,37 @@ if the requested information was difficulty or a pair of (index, solved_count) i
 requested information was solved count
 
 EXAMPLE:
-    /contests?data_requested='difficulty'&lowest_id=1700&highest_id=1702
+    /contests/difficulty?lowest_id=1700&highest_id=1702
 
     [(1700, 1850), (1701, 2004), (1702, 1497)]
 
 
 
-REQUEST: /tags_graph
+REQUEST: /tags_graph/<tags>
 
-GET parameters
-    tags (Required) -- returns a plot graph for each of the required
-        tags. The input is a list of tags separated by commas
+tags (Required) -- returns a plot graph for each of the required
+    tags. The input is a list of tags separated by commas
 
-RESPONSE: a JSON list of tuples, each of which represents one
+RESPONSE: a JSON dictionary, each of which represents one
 tag, sorted alphabetically by the name of the tag.
-Each tuple in this list will have the following fields.
+There is a field of the dictionary for every tag, the field
+contains a list of tuples with the following parameters:
 
-   tag -- (TEXT) the name of the tag
-   count -- (INTEGER) the number of problems with that tag
+   rating -- (INTEGER) the rating range being counted
+   count -- (INTEGER) the number of problems with that tag in that rating range
 
 EXAMPLE:
-    /tags_graph?tags='dp,number theory,graphs'
+    /tags_graph/dp,number theory
 
-       [("dp", 368), ("number theory", 203), ("graphs", 687)]
+       {"dp":[(800, 154), (900, 188), (1000, 103)],
+        "number theory": [(800, 102), (900, 137), (1000, 81)]}
 
 
 
-REQUEST: /tags_intersection
+REQUEST: /tags_intersection/<tags>
 
-GET parameters
-    tags (Required) -- returns the information for the problems that
-        contain all tags. The input is a list of tags separated by commas
+tags (Required) -- returns the information for the problems that
+    contain all tags. The input is a list of tags separated by commas
 
 RESPONSE: a JSON list of dictionaries, each of which represents one
 rating range, sorted decreasingly by rating. Each dictionary in this list
@@ -131,9 +131,9 @@ will have the following fields.
       in that range with those tags
 
 EXAMPLE:
-    /tags_graph?tags='dp,number theory,graphs'
+    /tags_graph/dp,number theory,graphs
 
-       [{rating:2200, problem_count:0, solved_count:0}, {rating:2300, problem_count:1, solved_count:222}]
+       [{"rating":2200, "problem_count":0, "solved_count":0}, {"rating":2300, "problem_count":1, "solved_count":222}]
 
 
 REQUEST: /tag_names
