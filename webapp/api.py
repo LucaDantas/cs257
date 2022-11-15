@@ -215,7 +215,6 @@ def get_tags_graph(received_tags):
             cursor.execute(query, args)
             tags[tag] = []
             for element in list(cursor):
-                print(element)
                 tags[tag].append((element[0], element[1]))
             
             cursor.close()
@@ -244,4 +243,33 @@ def get_tag_names():
         traceback.print_exc()
 
     return json.dumps(tags)
+
+
+@api.route('/tags_intersection/<received_tags>')
+def get_tags_intersection(received_tags):
+    received_tags = received_tags.split(',')
+
+    print("received args:", received_tags)
+
+    query = """SELECT problems.rating, COUNT(problems.rating) FROM tags, problem_tags, problems WHERE"""
+
+    for tag in received_tags:
+        query += " tags.name = %s AND"
+    query += " tags.id = problem_tags.tag_id AND problem_tags.problem_id = problems.problem_id GROUP BY problems.rating ORDER BY problems.rating"
+    problems = []
+    try:
+        connection = get_connection()
+        cursor = connection.cursor()
+        
+        cursor.execute(query, received_tags)
+        for element in list(cursor):
+            print(element)
+            problems.append((element[0], element[1]))
+        
+        cursor.close()
+        connection.close()
+    except Exception as e:
+        traceback.print_exc()
+    print(problems)
+    return json.dumps(problems)
 
