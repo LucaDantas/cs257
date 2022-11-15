@@ -17,6 +17,7 @@
 
 <div class="Body">
     <div class="CheckboxBar">
+        <button id="search" style="float: right; margin-left: 10px;">Search</button>
         <select name="displayType" id="displayType">
             <option value="graph">Graph</option>
             <option value="total">Total</option>
@@ -24,8 +25,8 @@
         </select>
         <form>
             <select name="tags" id="tags" size="25" multiple>
-                <option value="binary search">binary search</option>
-                <option value="binary search">binary search</option>
+                <option value="graph">graph</option>
+                <option value="dp">dp</option>
                 <option value="binary search">binary search</option>
                 <option value="binary search">binary search</option>
                 <option value="binary search">binary search</option>
@@ -66,11 +67,7 @@
             </select>
         </form>
     </div>
-
-    
-    <div class="Graph">
-        <img src="{{ url_for('static', filename='images/simple_graph.png') }}" alt="Graph representing the information of the tags requested">
-    </div>
+    <div id="chartContainer" style="height: 300px; width: 60%;"/>
 </div>
 </body>
 </html>
