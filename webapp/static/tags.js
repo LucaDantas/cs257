@@ -7,7 +7,25 @@ window.onload = initialize;
 
 function initialize() {
     var element = document.getElementById('search');
+    populateTags();
     element.onclick = onSearchButtonClicked;
+}
+
+function populateTags() {
+    var url = getAPIBaseURL() + '/tag_names';
+
+    fetch(url, {method: 'get'})
+        .then(response => response.json())
+        .then(function(tag_names) {
+            var options = '';
+            for (let i = 0; i < tag_names.length; i++) {
+                options += '<option value="' + tag_names[i] + '">' + tag_names[i] + '</option>';
+            }
+            var select_tags = document.getElementById('tags');
+            if (select_tags) {
+                    select_tags.innerHTML = options;
+            }
+        })
 }
 
 function getAPIBaseURL() {
