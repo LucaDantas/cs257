@@ -27,6 +27,8 @@ function onSearchButtonClicked() {
     .then(function(usersList) {
         dataPoints = []
         var c = new CanvasJS.Chart("chartContainer", {
+            axisX: { title: "Index of the contest" },
+            axisY: { title: data_requested == "total_solves" ? "Solves" : "Difficulty" },
             data: [{
                 type: "column",
                 dataPoints: dataPoints
