@@ -30,7 +30,6 @@ def get_users(institution_type):
     highest_rating = flask.request.args.get("highest_rating")
     max_users = flask.request.args.get("max_users")
     institution_name = flask.request.args.get("institution_name")
-    # institution_type = flask.request.args.get("institution_type")
     print("received args:", flask.request.args)
     query = """SELECT handle, first_name, last_name, rating, max_rating, user_rank, max_user_rank FROM users"""
 
@@ -147,7 +146,6 @@ def get_problems():
 @api.route('/contests/<data_requested>')
 def get_contest_graph(data_requested):
     # values of the data requested must be either total_solves or difficulty
-    # data_requested = flask.request.args.get("data_requested")
     lowest_id = flask.request.args.get("lowest_id")
     highest_id = flask.request.args.get("highest_id")
 
@@ -215,7 +213,7 @@ def get_tags_graph(received_tags):
             cursor.execute(query, args)
             tags[tag] = []
             for element in list(cursor):
-                if(element[0]):
+                if(element[0]): # I don't want the problems that have no rating (which is represented as 0)
                     tags[tag].append((element[0], element[1]))
             
             cursor.close()
