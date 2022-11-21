@@ -343,7 +343,7 @@ RESPONSE: a JSON list of tuples, each of which represents a rating range,
       in that range with those tags"""
     received_tags = received_tags.split(',')
 
-    query = """SELECT problems.rating, SUM(problems.solved_count)
+    query = """SELECT problems.rating, problems.solved_count
                FROM problems, problem_tags, tags
                WHERE problem_tags.tag_id = tags.id AND problems.problem_id = problem_tags.problem_id
                AND tags.name IN (
@@ -351,7 +351,7 @@ RESPONSE: a JSON list of tuples, each of which represents a rating range,
     # match only problems with all of the given tags
     query += ','.join(['%s' for i in range(len(received_tags))])
 
-    query += """) GROUP BY (problems.problem_id, problems.rating) HAVING COUNT(problems.problem_id) = %s"""
+    query += """) GROUP BY (problems.problem_id, problems.rating, problems.solved_count) HAVING COUNT(problems.problem_id) = %s"""
 
     ratingCount = defaultdict(int)
     solvedCount = defaultdict(int)
