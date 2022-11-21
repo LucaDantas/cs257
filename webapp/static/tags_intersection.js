@@ -44,19 +44,15 @@ function onSearchButtonClicked() {
     // x axis is rating range
     // y axis is the number of problems with that rating?
     
+    // This is only the graph, the other return types still need to be implemented
     fetch(url, {method: 'get'})
     .then((response) => response.json())
     .then(function(problemsData) {
-        var chartData = [];
         var dataPoints = problemsData.map(pt => ({x: pt[0], y: pt[1]}));
-        chartData.push({name: tagsRequested,
-                        type: "line",
-                        dataPoints: dataPoints,
-                        showInLegend: true});
         var c = new CanvasJS.Chart("chartContainer", {
             axisX: { title: "Rating of problem" },
             axisY: { title: "Number of problems" },
-            data: chartData
+            data: [{type: "column", dataPoints: dataPoints}]
         });
         c.render();
     })
