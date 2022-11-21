@@ -29,6 +29,10 @@ def tags():
 def tags_intersection():
     return flask.render_template('tags_intersection.html')
 
+@app.route('/help')
+def help():
+    return flask.render_template('help.html')
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser('A codeforces data application, including API & DB')
     parser.add_argument('host', help='the host address to run on')
