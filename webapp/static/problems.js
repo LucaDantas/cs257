@@ -43,19 +43,19 @@ function onSearchButtonClicked() {
     
     fetch(url, {method: 'get'})
     .then((response) => response.json())
-    .then(function(usersList) {
+    .then(function(problemsList) {
         var tableBody = '';
         tableBody += '<thead><tr><th>Id</th><th>Name</th><th>Rating</th><th>Tags</th><th>Solved Count</th></thead>'
-        for (var i = 0; i < usersList.length; i++) {
-            var sz = usersList[i]['id'].length;
-            var contestID = usersList[i]['id'].substring(0, sz-1);
-            var problemLetter = usersList[i]['id'][sz-1];
+        for (var i = 0; i < problemsList.length; i++) {
+            var size = problemsList[i]['id'].length;
+            var contestID = problemsList[i]['id'].substring(0, size-1);
+            var problemLetter = problemsList[i]['id'][size-1];
             tableBody += '<tr>';
-            tableBody += '<td><a href=https://codeforces.com/contest/' + contestID + '/problem/' + problemLetter + '>' + usersList[i]['id'] + '</a></td>';
-            tableBody += '<td>' + usersList[i]['name'] + '</td>';
-            tableBody += '<td>' + usersList[i]['rating'] + '</td>';
-            tableBody += '<td>' + usersList[i]['tags'] + '</td>';
-            tableBody += '<td>' + usersList[i]['solved_count'] + '</td>';
+            tableBody += '<td><a href=https://codeforces.com/contest/' + contestID + '/problem/' + problemLetter + '>' + problemsList[i]['id'] + '</a></td>';
+            tableBody += '<td>' + problemsList[i]['name'] + '</td>';
+            tableBody += '<td>' + problemsList[i]['rating'] + '</td>';
+            tableBody += '<td>' + problemsList[i]['tags'] + '</td>';
+            tableBody += '<td>' + problemsList[i]['solved_count'] + '</td>';
             tableBody += '</tr>';
         }
         var resultsTableElement = document.getElementById('problems');

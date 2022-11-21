@@ -30,7 +30,7 @@ will have the following fields.
    max_rank -- (TEXT) the user's maximum rank
 
 EXAMPLE:
-    /authors/institution?search_name="Carleton College"&lowest_rating=400&max_users=5
+    /users/institution?search_name="Carleton College"&lowest_rating=400&max_users=5
        [{"handle":"Luca", "name":"Luca", "rating":2268, "max_rating":2268, "rank":"Master", "max_rank":"Master"},
        {"handle":"batmendbar", "name":"Batmend", "rating":1974, "max_rating":1974, "rank":"Candidate Master", "max_rank":"Candidate Master"},
        {"handle":"column", "name":"Zimri", "rating":409, "max_rating":409, "rank":"Newbie", "max_rank":"Newbie"}]
@@ -120,9 +120,8 @@ REQUEST: /tags_intersection/<tags>
 tags (Required) -- returns the information for the problems that
     contain all tags. The input is a list of tags separated by commas
 
-RESPONSE: a JSON list of dictionaries, each of which represents one
-rating range, sorted decreasingly by rating. Each dictionary in this list
-will have the following fields.
+RESPONSE: a JSON list of tuples, each of which represents a rating range,
+    sorted decreasingly by rating. Each tuple will have the following fields:
 
    rating -- (INTEGER) the beginning of the rating range (all problems ratings' are multiples of 100)
    problem_count -- (INTEGER) the count of problems in that range
@@ -131,7 +130,7 @@ will have the following fields.
       in that range with those tags
 
 EXAMPLE:
-    /tags_graph/dp,number theory,graphs
+    /tags_intersection/dp,number theory,graphs
 
        [{"rating":2200, "problem_count":0, "solved_count":0}, {"rating":2300, "problem_count":1, "solved_count":222}]
 

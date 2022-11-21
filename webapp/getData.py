@@ -11,6 +11,8 @@ csv_tags = 'data/tags.csv'
 csv_problem_tags = 'data/problem_tags.csv'
 
 def get_problems():
+    """Writes a list of all Codeforces problems to the csv_problems file, including their
+    id, contest_id, name, rating, solved count and tags"""
     url = f'{API_BASE_URL}/problemset.problems'
     result = json.loads(urllib.request.urlopen(url).read().decode('utf-8'))
     if result['status'] != "OK":
@@ -56,10 +58,10 @@ def get_problems():
                 linking.writerow((problem_id, tags[tag]))
 
 def get_users():
-    #url = 'https://codeforces.com/api/user.info?handles=Luca;column;batmendbar'
+    """Writes a list of all Codeforces users to the csv_users file, including their
+    handle, first and last names, country, organization, rating, max rating, rank and max rank"""
     url = f'{API_BASE_URL}/user.ratedList?activeOnly=false&includeRetired=false'
     result = json.loads(urllib.request.urlopen(url).read().decode('utf-8'))
-    print(result['status'])
     if result['status'] != "OK":
         print("error getting users:", result)
         exit(1)
@@ -80,6 +82,8 @@ def get_users():
             out.writerow(a)
 
 def get_contests():
+    """Writes a list of all Codeforces contests to the csv_contests file, including their
+    solved count, sum of problem difficulties and count of problems"""
     url = f'{API_BASE_URL}/problemset.problems'
     result = json.loads(urllib.request.urlopen(url).read().decode('utf-8'))
     if result['status'] != "OK":
