@@ -250,25 +250,35 @@ def get_tags_intersection(received_tags):
 
     print("received args:", received_tags)
 
-    query = """SELECT problems.rating, COUNT(problems.rating) FROM tags, problem_tags, problems WHERE"""
+    query = """SELECT problems.rating
+               FROM problems, problem_tags, tags
+               WHERE problem_tags.tag_id = tags.id AND problems.problem_id = problem_tags.problem_id
+               AND tags.name IN (
+               """
 
-    for tag in received_tags:
-        query += " tags.name = %s AND"
-    query += " tags.id = problem_tags.tag_id AND problem_tags.problem_id = problems.problem_id GROUP BY problems.rating ORDER BY problems.rating"
-    problems = []
+    query += ','.join(['%s' for i in range(len(received_tags))])
+
+    query += """) GROUP BY (problems.problem_id, problems.rating) HAVING COUNT(problems.problem_id) = %s"""
+
+    problems = {}
     try:
         connection = get_connection()
         cursor = connection.cursor()
         
-        cursor.execute(query, received_tags)
+        cursor.execute(query, received_tags + [len(received_tags)])
         for element in list(cursor):
+            if not element[0]:
+                continue
             print(element)
-            problems.append((element[0], element[1]))
+            if element[0] not in problems:
+                problems[element[0]] = 0
+            problems[element[0]] += 1
         
         cursor.close()
         connection.close()
     except Exception as e:
         traceback.print_exc()
+
     print(problems)
-    return json.dumps(problems)
+    return json.dumps(sorted([(p, problems[p]) for p in problems]))
 
